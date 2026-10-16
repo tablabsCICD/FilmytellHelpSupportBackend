@@ -1,0 +1,23 @@
+package com.filmytell.support.enums;
+
+public enum HistoryEventType {
+    TICKET_CREATED,
+    STATUS_CHANGED,
+    PRIORITY_CHANGED,
+    ASSIGNED,
+    REASSIGNED,
+    TASK_DELEGATED,
+    TASK_STARTED,
+    TASK_COMPLETED,
+    TASK_RETURNED,
+    TASK_CANCELLED,
+    OWNER_CHANGED,
+    MESSAGE_SENT,
+    NOTE_ADDED,
+    AI_ANALYSIS,
+    AI_RESPONSE,
+    AI_ESCALATED,
+    RESOLVED,
+    REOPENED,
+    CLOSED
+}

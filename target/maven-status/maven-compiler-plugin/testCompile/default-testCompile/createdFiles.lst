@@ -1,0 +1,6 @@
+com\filmytell\support\controller\ExternalTicketControllerTest.class
+com\filmytell\support\service\TicketWorkflowServiceTest.class
+com\filmytell\support\HelpSupportApplicationTests.class
+com\filmytell\support\service\AiSupportServiceTest.class
+com\filmytell\support\service\TaskDelegationServiceTest.class
+com\filmytell\support\service\TicketSyncServiceTest.class

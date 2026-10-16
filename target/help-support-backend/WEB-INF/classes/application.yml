@@ -1,0 +1,70 @@
+spring:
+  application:
+    name: help-support-backend
+  profiles:
+    active: dev
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 25
+          order_inserts: true
+          order_updates: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: false
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Custom application properties
+app:
+  jwt:
+    secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000} # 24 hours
+    refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000} # 7 days
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:5173,http://localhost:8080}
+  delegation:
+    max-depth: ${DELEGATION_MAX_DEPTH:5}
+    allow-cross-team: true
+  ai:
+    enabled: ${AI_ENABLED:true}
+    confidence-threshold: ${AI_CONFIDENCE_THRESHOLD:0.85}
+    model: ${AI_MODEL:gemini-1.5-pro}
+    api-key: ${AI_API_KEY:mock-key}
+    timeout-ms: 3000
+    auto-resolve-categories:
+      - FAQ
+      - LOGIN_GUIDANCE
+      - PLAYBACK_TROUBLESHOOTING
+      - KNOWN_ERROR
+      - FEATURE_GUIDANCE
+      - GENERAL_INFORMATION
+    sensitive-categories:
+      - REFUND
+      - FRAUD
+      - SECURITY
+      - ACCOUNT_OWNERSHIP
+      - LEGAL
+      - SENSITIVE_PERSONAL_DATA
+  sla:
+    check-interval-cron: "0 */5 * * * *" # Every 5 minutes
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha

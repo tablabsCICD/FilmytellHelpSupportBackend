@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: helpsupport-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: helpsupport_db
+      MYSQL_USER: helpsupport_user
+      MYSQL_PASSWORD: helpsupport_password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "helpsupport_user", "-phelpsupport_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: helpsupport-backend
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DATABASE_URL: jdbc:mysql://mysql:3306/helpsupport_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata&useUnicode=true&characterEncoding=UTF-8
+      DATABASE_USERNAME: helpsupport_user
+      DATABASE_PASSWORD: helpsupport_password
+      JWT_SECRET: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      JWT_EXPIRATION_MS: 86400000
+      JWT_REFRESH_EXPIRATION_MS: 604800000
+      AI_ENABLED: "true"
+      AI_CONFIDENCE_THRESHOLD: "0.85"
+      AI_MODEL: "gemini-1.5-pro"
+      AI_API_KEY: "${AI_API_KEY:-mock-gemini-key}"
+      CORS_ALLOWED_ORIGINS: "http://localhost:3000,http://localhost:5173,http://localhost:8080"
+
+volumes:
+  mysql_data:

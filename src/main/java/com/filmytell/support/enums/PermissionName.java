@@ -1,0 +1,23 @@
+package com.filmytell.support.enums;
+
+public enum PermissionName {
+    TICKET_VIEW,
+    TICKET_CREATE,
+    TICKET_UPDATE,
+    TICKET_ASSIGN,
+    TICKET_REASSIGN,
+    TICKET_DELEGATE,
+    TICKET_TAKE_BACK,
+    TICKET_RESOLVE,
+    TICKET_CLOSE,
+    TICKET_REOPEN,
+    PRIORITY_UPDATE,
+    STATUS_UPDATE,
+    TEAM_MANAGE,
+    USER_MANAGE,
+    AI_MANAGE,
+    REPORT_VIEW,
+    AUDIT_VIEW,
+    MESSAGE_SEND,
+    NOTE_ADD
+}
